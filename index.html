@@ -97,15 +97,15 @@ input, textarea {
 <!-- MODE SELECT -->
 <div id="modeSelect">
     <h2>Выбери режим</h2>
-    <button onclick="userMode()">👤 Пользователь</button>
-    <button onclick="adminMode()">🔐 Админ</button>
+    <button onclick="userMode()"> Пользователь</button>
+    <button onclick="adminMode()"> Админ</button>
 </div>
 
 <!-- USER SITE -->
 <div id="userSite" style="display:none">
 
 <header>
-    <h3>⚡ Rasul Studio</h3>
+    <h3> Rasul Studio</h3>
     <button onclick="back()">Выход</button>
 </header>
 
@@ -123,9 +123,9 @@ input, textarea {
 
 <section>
     <h2>Услуги</h2>
-    <div class="card">🌐 Лендинг сайт</div>
-    <div class="card">💼 Бизнес сайт</div>
-    <div class="card">⚡ Быстрая работа</div>
+    <div class="card"> Лендинг сайт</div>
+    <div class="card"> Бизнес сайт</div>
+    <div class="card"> Быстрая работа</div>
 </section>
 
 <section>
@@ -143,7 +143,7 @@ input, textarea {
 <!-- ADMIN PANEL -->
 <div id="adminPanel">
 
-<h2>📊 Админ панель</h2>
+<h2> Админ панель</h2>
 <button onclick="back()">Выход</button>
 
 <div id="leads"></div>
@@ -200,50 +200,16 @@ function send(){
     let text = document.getElementById("text").value;
 
     let msg =
-`💼 ЗАЯВКА
-👤 ${name}
-📱 ${tg}
-📝 ${text}`;
+ ЗАЯВКА
+{name}
+{tg}
+{text}`;
 
     leads.push({name,tg,text});
 
     alert("Заявка отправлена!");
 }
-{
-    let name = document.getElementById("name").value;
-    let tg = document.getElementById("tg").value;
-    let text = document.getElementById("text").value;
 
-    let msg =
-`💼 ЗАЯВКА
-👤 ${name}
-📱 ${tg}
-📝 ${text}`;
-
-    leads.push({name,tg,text});
-    👤 ${l.name}<br>
-            📱 ${l.tg}<br>
-            📝 ${l.text}
-        </div>`;
-    });
-}
-
-</script>
-
-</body>
-</html>
-
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-            chat_id:CHAT_ID,
-            text:msg
-        })
-    });
-
-    alert("Заявка отправлена!");
-}
 
 /* =======================
 ADMIN LOAD
@@ -256,3 +222,4 @@ function loadLeads(){
     leads.forEach(l=>{
         box.innerHTML += `
         <div class="lead">
+    
