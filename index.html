@@ -1,225 +1,137 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rasul Studio</title>
+    <meta charset="UTF-8">
+    <title>Услуги онлайн</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+        }
 
-<style>
-body {
-    margin:0;
-    font-family:Arial;
-    color:white;
+        header {
+            padding: 20px;
+            text-align: center;
+            background: #1e293b;
+        }
 
-    background: linear-gradient(-45deg, #0f172a, #1e293b, #0b1220, #111827);
-    background-size: 400% 400%;
-    animation: bgMove 12s ease infinite;
-}
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
 
-@keyframes bgMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
 
-/* MODE SELECT */
-#modeSelect {
-    position:fixed;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:#050814;
-}
+        .hero h2 {
+            font-size: 28px;
+        }
 
-button {
-    padding:12px 20px;
-    margin:10px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-}
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #22c55e;
+            color: black;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
 
-/* USER SITE */
-header {
-    display:flex;
-    justify-content:space-between;
-    padding:15px;
-    background:#0b1220;
-}
+        .section {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
 
-section {
-    padding:60px 20px;
-    max-width:900px;
-    margin:auto;
-}
+        .services {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
 
-.card {
-    background:rgba(255,255,255,0.05);
-    padding:15px;
-    margin:10px 0;
-    border-radius:10px;
-}
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+        }
 
-/* FORM */
-input, textarea {
-    width:100%;
-    padding:10px;
-    margin:5px 0;
-    border-radius:8px;
-    border:none;
-}
-
-.btn {
-    background:#22c55e;
-}
-
-/* ADMIN */
-#adminPanel {
-    display:none;
-    padding:20px;
-}
-
-.lead {
-    background:rgba(255,255,255,0.05);
-    padding:10px;
-    margin:10px 0;
-    border-radius:10px;
-}
-
-</style>
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #020617;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- MODE SELECT -->
-<div id="modeSelect">
-    <h2>Выбери режим</h2>
-    <button onclick="userMode()"> Пользователь</button>
-    <button onclick="adminMode()"> Админ</button>
-</div>
-
-<!-- USER SITE -->
-<div id="userSite" style="display:none">
-
 <header>
-    <h3> Rasul Studio</h3>
-    <button onclick="back()">Выход</button>
+    <h1>Онлайн услуги</h1>
 </header>
 
-<section>
-    <h2>Создаю сайты для бизнеса</h2>
-    <p>Лендинги • Портфолио • Бизнес сайты</p>
+<section class="hero">
+    <h2>Тексты, переводы и помощь с заданиями</h2>
+    <p>Быстро. Качественно. Недорого.</p>
+    <a href="#contact" class="btn">Заказать</a>
 </section>
 
-<section>
+<section class="section">
     <h2>Обо мне</h2>
-    <div class="card">
-        Я начинающий разработчик. Создаю сайты и учусь frontend разработке.
+    <p>
+        Я выполняю онлайн задания: пишу тексты, перевожу и помогаю с учебой.
+        Работаю быстро и всегда на связи.
+    </p>
+</section>
+
+<section class="section">
+    <h2>Услуги</h2>
+    <div class="services">
+        <div class="card">
+            <h3>Написание текстов</h3>
+            <p>Статьи, описания, задания</p>
+            <p>от 1000 тг</p>
+        </div>
+
+        <div class="card">
+            <h3>Переводы</h3>
+            <p>Русский ↔ Казахский</p>
+            <p>от 500 тг</p>
+        </div>
+
+        <div class="card">
+            <h3>Набор текста</h3>
+            <p>С аудио, фото, PDF</p>
+            <p>от 50 тг/мин</p>
+        </div>
+
+        <div class="card">
+            <h3>Помощь с заданиями</h3>
+            <p>Школа, рефераты</p>
+            <p>договорная</p>
+        </div>
     </div>
 </section>
 
-<section>
-    <h2>Услуги</h2>
-    <div class="card"> Лендинг сайт</div>
-    <div class="card"> Бизнес сайт</div>
-    <div class="card"> Быстрая работа</div>
+<section class="section">
+    <h2>Почему я</h2>
+    <p>✔ Быстро выполняю</p>
+    <p>✔ Доступные цены</p>
+    <p>✔ Всегда на связи</p>
 </section>
 
-<section>
-    <h2>Заказать сайт</h2>
-
-    <input id="name" placeholder="Имя">
-    <input id="tg" placeholder="Telegram">
-    <textarea id="text" placeholder="Что нужно сделать?"></textarea>
-
-    <button class="btn" onclick="send()">Отправить</button>
+<section class="section" id="contact">
+    <h2>Контакты</h2>
+    <p>Telegram: @yaannnge1</p>
+    <p>WhatsApp: +77028963009</p>
 </section>
 
-</div>
+<footer>
+    <p>© 2026 Онлайн услуги</p>
+</footer>
 
-<!-- ADMIN PANEL -->
-<div id="adminPanel">
-
-<h2> Админ панель</h2>
-<button onclick="back()">Выход</button>
-
-<div id="leads"></div>
-
-</div>
-
-<script>
-
-/* =======================
-MODE SWITCH
-======================= */
-
-function userMode(){
-    document.getElementById("modeSelect").style.display="none";
-    document.getElementById("userSite").style.display="block";
-}
-
-function adminMode(){
-    let pass = prompt("Введите пароль:");
-
-    if(pass==="1234"){
-        document.getElementById("modeSelect").style.display="none";
-        document.getElementById("adminPanel").style.display="block";
-        loadLeads();
-    } else {
-        alert("Неверный пароль");
-    }
-}
-
-function back(){
-    location.reload();
-}
-
-/* =======================
-TELEGRAM (optional)
-======================= */
-
-const BOT_TOKEN = "ТВОЙ_ТОКЕН";
-const CHAT_ID = "ТВОЙ_CHAT_ID";
-
-/* =======================
-LEADS DB (temporary)
-======================= */
-
-let leads = [];
-
-/* =======================
-SEND ORDER
-======================= */
-
-function send(){
-    let name = document.getElementById("name").value;
-    let tg = document.getElementById("tg").value;
-    let text = document.getElementById("text").value;
-
-    let msg =
- ЗАЯВКА
-{name}
-{tg}
-{text}`;
-
-    leads.push({name,tg,text});
-
-    alert("Заявка отправлена!");
-}
-
-
-/* =======================
-ADMIN LOAD
-======================= */
-
-function loadLeads(){
-    let box = document.getElementById("leads");
-    box.innerHTML="";
-
-    leads.forEach(l=>{
-        box.innerHTML += `
-        <div class="lead">
-    
+</body>
+</html>
