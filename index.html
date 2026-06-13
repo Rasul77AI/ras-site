@@ -206,6 +206,21 @@ function send(){
 📝 ${text}`;
 
     leads.push({name,tg,text});
+
+    alert("Заявка отправлена!");
+}
+{
+    let name = document.getElementById("name").value;
+    let tg = document.getElementById("tg").value;
+    let text = document.getElementById("text").value;
+
+    let msg =
+`💼 ЗАЯВКА
+👤 ${name}
+📱 ${tg}
+📝 ${text}`;
+
+    leads.push({name,tg,text});
     👤 ${l.name}<br>
             📱 ${l.tg}<br>
             📝 ${l.text}
