@@ -1,92 +1,233 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Услуги онлайн</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rasul Studio SaaS</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: white;
-        }
+<style>
+body {
+    margin:0;
+    font-family:Arial;
+    background:#050814;
+    color:white;
+}
 
-        header {
-            padding: 20px;
-            text-align: center;
-            background: #1e293b;
-        }
+/* LOGIN */
+#login {
+    position:fixed;
+    inset:0;
+    background:#050814;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
 
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-        }
+input, textarea {
+    padding:10px;
+    margin:5px;
+    border-radius:8px;
+    border:none;
+}
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #22c55e;
-            color: black;
-            text-decoration: none;
-            border-radius: 8px;
-        }
+button {
+    padding:10px 15px;
+    background:#22c55e;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
 
-        .section {
-            padding: 40px 20px;
-            max-width: 900px;
-            margin: auto;
-        }
+/* MAIN */
+header {
+    display:flex;
+    justify-content:space-between;
+    padding:15px;
+    background:#0b1220;
+    position:sticky;
+    top:0;
+}
 
-        .services {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+section {
+    padding:60px 20px;
+    max-width:900px;
+    margin:auto;
+}
 
-        .card {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 10px;
-        }
-    </style>
+.card {
+    background:rgba(255,255,255,0.05);
+    padding:15px;
+    border-radius:10px;
+    margin:10px 0;
+}
+
+/* CHAT */
+#chatBox {
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    width:250px;
+    background:#0b1220;
+    padding:10px;
+    border-radius:10px;
+}
+
+#messages {
+    height:150px;
+    overflow:auto;
+    font-size:12px;
+}
+
+</style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+<div id="login">
+    <h2>Admin Login</h2>
+    <input id="u" placeholder="login">
+    <input id="p" type="password" placeholder="password">
+    <button onclick="login()">Enter</button>
+</div>
+
+<!-- MAIN -->
+<div id="app" style="display:none">
+
 <header>
-    <h1>Онлайн услуги</h1>
+    <h3>⚡ Rasul SaaS</h3>
+    <button onclick="logout()">Exit</button>
 </header>
 
-<section class="hero">
-    <h2>Тексты, переводы и помощь</h2>
-    <a href="https://t.me/aannnge1" class="btn">Заказать</a>
+<section>
+    <h2>📊 Заявки (CRM)</h2>
+    <div id="leads"></div>
 </section>
 
-<section class="section">
-    <h2>Услуги</h2>
-    <div class="services">
+<section>
+    <h2>💰 Заказы</h2>
+    <div class="card">Landing — 5000₸</div>
+    <div class="card">Business — 10000₸</div>
+</section>
 
+<!-- CHAT -->
+<div id="chatBox">
+    <div id="messages"></div>
+    <input id="msg" placeholder="Напиши...">
+</div>
+
+</div>
+
+<script>
+
+/* =========================
+   LOGIN (demo)
+========================= */
+function login(){
+    const u = document.getElementById("u").value;
+    const p = document.getElementById("p").value;
+
+    if(u==="admin" && p==="1234"){
+        document.getElementById("login").style.display="none";
+        document.getElementById("app").style.display="block";
+        loadLeads();
+    } else {
+        alert("wrong");
+    }
+}
+
+function logout(){
+    location.reload();
+}
+
+/* =========================
+   FIREBASE (REAL DB)
+========================= */
+
+/*
+const firebaseConfig = {
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBqzct4sN0cIuT8xFGFn49ZQMDTafxCQjA",
+  authDomain: "rasul-studio.firebaseapp.com",
+  projectId: "rasul-studio",
+  storageBucket: "rasul-studio.firebasestorage.app",
+  messagingSenderId: "168872030224",
+  appId: "1:168872030224:web:4c2c9dc36879e56eca5a95",
+  measurementId: "G-KWZH38HD5B"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+};
+*/
+
+/* Пока имитация базы */
+let leads = [
+    {name:"Ali", tg:"@ali", text:"Сайт"},
+    {name:"Dias", tg:"@dias", text:"Лендинг"}
+];
+
+function loadLeads(){
+    const box = document.getElementById("leads");
+    box.innerHTML = "";
+
+    leads.forEach(l=>{
+        box.innerHTML += `
         <div class="card">
-            <h3>Написание текстов</h3>
-            <p>от 1000 тг</p>
-        </div>
+            👤 ${l.name}<br>
+            📱 ${l.tg}<br>
+            📝 ${l.text}
+        </div>`;
+    });
+}
 
-        <div class="card">
-            <h3>Переводы</h3>
-            <p>от 500 тг</p>
-        </div>
+/* =========================
+   SIMPLE AI CHAT
+========================= */
 
-    </div>
-</section>
+document.getElementById("msg").addEventListener("keypress", function(e){
+    if(e.key==="Enter"){
+        const val = this.value;
+        const box = document.getElementById("messages");
 
-<section class="section" id="contact">
-    <h2>Контакты</h2>
-    <p>WhatsApp: +77028963009</p>
-    <p>Telegram: @aannnge1</p>
-</section>
+        box.innerHTML += "<div>👤 "+val+"</div>";
+
+        let reply = "Я не понял";
+
+        if(val.includes("цена")){
+            reply = "От 5000₸";
+        } else if(val.includes("сайт")){
+            reply = "Я делаю лендинги и бизнес сайты";
+        } else {
+            reply = "Напиши заявку в CRM";
+        }
+
+        setTimeout(()=>{
+            box.innerHTML += "<div>🤖 "+reply+"</div>";
+        },500);
+
+        this.value="";
+    }
+});
+
+/* =========================
+   ANALYTICS (Google)
+========================= */
+/*
+gtag.js вставляется сюда
+*/
+
+</script>
 
 </body>
 </html>
