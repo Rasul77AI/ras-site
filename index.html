@@ -3,50 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rasul Studio SaaS</title>
+<title>Rasul Studio</title>
 
 <style>
 body {
     margin:0;
     font-family:Arial;
-    background:#050814;
     color:white;
+
+    background: linear-gradient(-45deg, #0f172a, #1e293b, #0b1220, #111827);
+    background-size: 400% 400%;
+    animation: bgMove 12s ease infinite;
 }
 
-/* LOGIN */
-#login {
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* MODE SELECT */
+#modeSelect {
     position:fixed;
     inset:0;
-    background:#050814;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-}
-
-input, textarea {
-    padding:10px;
-    margin:5px;
-    border-radius:8px;
-    border:none;
+    background:#050814;
 }
 
 button {
-    padding:10px 15px;
-    background:#22c55e;
+    padding:12px 20px;
+    margin:10px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     cursor:pointer;
+    font-weight:bold;
 }
 
-/* MAIN */
+/* USER SITE */
 header {
     display:flex;
     justify-content:space-between;
     padding:15px;
     background:#0b1220;
-    position:sticky;
-    top:0;
 }
 
 section {
@@ -58,25 +59,34 @@ section {
 .card {
     background:rgba(255,255,255,0.05);
     padding:15px;
-    border-radius:10px;
     margin:10px 0;
-}
-
-/* CHAT */
-#chatBox {
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:250px;
-    background:#0b1220;
-    padding:10px;
     border-radius:10px;
 }
 
-#messages {
-    height:150px;
-    overflow:auto;
-    font-size:12px;
+/* FORM */
+input, textarea {
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border-radius:8px;
+    border:none;
+}
+
+.btn {
+    background:#22c55e;
+}
+
+/* ADMIN */
+#adminPanel {
+    display:none;
+    padding:20px;
+}
+
+.lead {
+    background:rgba(255,255,255,0.05);
+    padding:10px;
+    margin:10px 0;
+    border-radius:10px;
 }
 
 </style>
@@ -84,150 +94,150 @@ section {
 
 <body>
 
-<!-- LOGIN -->
-<div id="login">
-    <h2>Admin Login</h2>
-    <input id="u" placeholder="login">
-    <input id="p" type="password" placeholder="password">
-    <button onclick="login()">Enter</button>
+<!-- MODE SELECT -->
+<div id="modeSelect">
+    <h2>Выбери режим</h2>
+    <button onclick="userMode()">👤 Пользователь</button>
+    <button onclick="adminMode()">🔐 Админ</button>
 </div>
 
-<!-- MAIN -->
-<div id="app" style="display:none">
+<!-- USER SITE -->
+<div id="userSite" style="display:none">
 
 <header>
-    <h3>⚡ Rasul SaaS</h3>
-    <button onclick="logout()">Exit</button>
+    <h3>⚡ Rasul Studio</h3>
+    <button onclick="back()">Выход</button>
 </header>
 
 <section>
-    <h2>📊 Заявки (CRM)</h2>
-    <div id="leads"></div>
+    <h2>Создаю сайты для бизнеса</h2>
+    <p>Лендинги • Портфолио • Бизнес сайты</p>
 </section>
 
 <section>
-    <h2>💰 Заказы</h2>
-    <div class="card">Landing — 5000₸</div>
-    <div class="card">Business — 10000₸</div>
+    <h2>Обо мне</h2>
+    <div class="card">
+        Я начинающий разработчик. Создаю сайты и учусь frontend разработке.
+    </div>
 </section>
 
-<!-- CHAT -->
-<div id="chatBox">
-    <div id="messages"></div>
-    <input id="msg" placeholder="Напиши...">
+<section>
+    <h2>Услуги</h2>
+    <div class="card">🌐 Лендинг сайт</div>
+    <div class="card">💼 Бизнес сайт</div>
+    <div class="card">⚡ Быстрая работа</div>
+</section>
+
+<section>
+    <h2>Заказать сайт</h2>
+
+    <input id="name" placeholder="Имя">
+    <input id="tg" placeholder="Telegram">
+    <textarea id="text" placeholder="Что нужно сделать?"></textarea>
+
+    <button class="btn" onclick="send()">Отправить</button>
+</section>
+
 </div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+
+<h2>📊 Админ панель</h2>
+<button onclick="back()">Выход</button>
+
+<div id="leads"></div>
 
 </div>
 
 <script>
 
-/* =========================
-   LOGIN (demo)
-========================= */
-function login(){
-    const u = document.getElementById("u").value;
-    const p = document.getElementById("p").value;
+/* =======================
+MODE SWITCH
+======================= */
 
-    if(u==="admin" && p==="1234"){
-        document.getElementById("login").style.display="none";
-        document.getElementById("app").style.display="block";
+function userMode(){
+    document.getElementById("modeSelect").style.display="none";
+    document.getElementById("userSite").style.display="block";
+}
+
+function adminMode(){
+    let pass = prompt("Введите пароль:");
+
+    if(pass==="1234"){
+        document.getElementById("modeSelect").style.display="none";
+        document.getElementById("adminPanel").style.display="block";
         loadLeads();
     } else {
-        alert("wrong");
+        alert("Неверный пароль");
     }
 }
 
-function logout(){
+function back(){
     location.reload();
 }
 
-/* =========================
-   FIREBASE (REAL DB)
-========================= */
+/* =======================
+TELEGRAM (optional)
+======================= */
 
-/*
-const firebaseConfig = {
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+const BOT_TOKEN = "ТВОЙ_ТОКЕН";
+const CHAT_ID = "ТВОЙ_CHAT_ID";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBqzct4sN0cIuT8xFGFn49ZQMDTafxCQjA",
-  authDomain: "rasul-studio.firebaseapp.com",
-  projectId: "rasul-studio",
-  storageBucket: "rasul-studio.firebasestorage.app",
-  messagingSenderId: "168872030224",
-  appId: "1:168872030224:web:4c2c9dc36879e56eca5a95",
-  measurementId: "G-KWZH38HD5B"
-};
+/* =======================
+LEADS DB (temporary)
+======================= */
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-};
-*/
+let leads = [];
 
-/* Пока имитация базы */
-let leads = [
-    {name:"Ali", tg:"@ali", text:"Сайт"},
-    {name:"Dias", tg:"@dias", text:"Лендинг"}
-];
+/* =======================
+SEND ORDER
+======================= */
 
-function loadLeads(){
-    const box = document.getElementById("leads");
-    box.innerHTML = "";
+function send(){
+    let name = document.getElementById("name").value;
+    let tg = document.getElementById("tg").value;
+    let text = document.getElementById("text").value;
 
-    leads.forEach(l=>{
-        box.innerHTML += `
-        <div class="card">
-            👤 ${l.name}<br>
+    let msg =
+`💼 ЗАЯВКА
+👤 ${name}
+📱 ${tg}
+📝 ${text}`;
+
+    leads.push({name,tg,text});
+    👤 ${l.name}<br>
             📱 ${l.tg}<br>
             📝 ${l.text}
         </div>`;
     });
 }
 
-/* =========================
-   SIMPLE AI CHAT
-========================= */
-
-document.getElementById("msg").addEventListener("keypress", function(e){
-    if(e.key==="Enter"){
-        const val = this.value;
-        const box = document.getElementById("messages");
-
-        box.innerHTML += "<div>👤 "+val+"</div>";
-
-        let reply = "Я не понял";
-
-        if(val.includes("цена")){
-            reply = "От 5000₸";
-        } else if(val.includes("сайт")){
-            reply = "Я делаю лендинги и бизнес сайты";
-        } else {
-            reply = "Напиши заявку в CRM";
-        }
-
-        setTimeout(()=>{
-            box.innerHTML += "<div>🤖 "+reply+"</div>";
-        },500);
-
-        this.value="";
-    }
-});
-
-/* =========================
-   ANALYTICS (Google)
-========================= */
-/*
-gtag.js вставляется сюда
-*/
-
 </script>
 
 </body>
 </html>
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            chat_id:CHAT_ID,
+            text:msg
+        })
+    });
+
+    alert("Заявка отправлена!");
+}
+
+/* =======================
+ADMIN LOAD
+======================= */
+
+function loadLeads(){
+    let box = document.getElementById("leads");
+    box.innerHTML="";
+
+    leads.forEach(l=>{
+        box.innerHTML += `
+        <div class="lead">
