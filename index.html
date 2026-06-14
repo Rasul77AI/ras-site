@@ -17,6 +17,7 @@
             padding: 20px;
             text-align: center;
             background: #1e293b;
+            <button onclick="toggleTheme()">🌙</button>
         }
 
         .hero {
@@ -28,15 +29,10 @@
             font-size: 28px;
         }
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #22c55e;
-            color: black;
-            text-decoration: none;
-            border-radius: 8px;
-        }
+.btn:hover {
+    background: #16a34a;
+    transform: scale(1.05);
+}
 
         .section {
             padding: 40px 20px;
@@ -51,10 +47,36 @@
         }
 
         .card {
-            background: #1e293b;
-            padding: 20px;
-            border-radius: 10px;
-        }
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.5s;
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
+} 
+
+.chat-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #22c55e;
+    color: black;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+<button onclick="toggleTheme()">🌙</button>
+html {
+    scroll-behavior: smooth;
+}
+
     </style>
 </head>
 
@@ -81,7 +103,7 @@
 <section class="section">
     <h2>Услуги</h2>
     <div class="services">
-        <div claa="card">
+        <div class="card">
             <h3>Написание текстов</h3>
             <p>Статьи, описания, задания</p>
             <p>От 1000 тг</p>
@@ -109,6 +131,7 @@
 
 <section class="section">
     <h2>Почему я</h2>
+    <p>👥 Клиентов: <span id="clients">0</span>+</p>
     <p>✔ Быстро выполняю</p>
     <p>✔ Доступные цены</p>
     <p>✔ Всегда на связи</p>
@@ -123,6 +146,38 @@
 <footer>
     <p>© 2026 Онлайн услуги</p>
 </footer>
+
+<a href="https://t.me/aannnge1" class="chat-btn">💬</a> 
+<script>
+const cards = document.querySelectorAll('.card');
+
+window.addEventListener('scroll', () => {
+    cards.forEach(card => {
+        const top = card.getBoundingClientRect().top;
+        if (top < window.innerHeight - 50) {
+            card.classList.add('show');
+        }
+    });
+});
+
+ </script>\
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle('light');
+}
+</script>
+
+<script>
+let count = 0;
+let target = 120;
+
+let interval = setInterval(() => {
+    count++;
+    document.getElementById('clients').innerText = count;
+    if (count >= target) clearInterval(interval);
+}, 20);
+</script>
 
 </body>
 </html>
